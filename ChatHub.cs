@@ -9,6 +9,21 @@ namespace LinkedInSignalR
 {
     public class ChatHub : Hub
     {
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.Caller.SendAsync(
+                "ReceiveMessage", "ChatKewl",
+                    DateTimeOffset.UtcNow,
+                    "Hello What can i do for you?");
+
+            await base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            return base.OnDisconnectedAsync(exception);
+        }
+
         public async Task SendMessage(string name, string text)
         {
             var message = new ChatMessage

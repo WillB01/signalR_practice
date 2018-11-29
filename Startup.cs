@@ -24,8 +24,19 @@ namespace LinkedInSignalR
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+            app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseStatusCodePages();
+
+            //app.UseCors(builder => //CORS SET UP
+            //{
+            //    builder.WithOrigins("https://www.example.com")
+            //            .AllowAnyHeader()
+            //            .WithMethods("GET", "POST")
+            //            .AllowCredentials();
+            //});
+
             app.UseSignalR(routes => 
             {
                 routes.MapHub<ChatHub>("/chathub"); // can be anything in param "/anything"
